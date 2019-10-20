@@ -2,10 +2,12 @@
 	"name": "sugar-suggest",
 	"displayName": "sugar-suggest",
 	"description": "",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
+	"publisher": "wYuanHpp",
+	"repository": "git@github.com:wYuanHpp/sugar-suggest.git",
 	"categories": [
 		"Other"
 	],
@@ -24,7 +26,11 @@
 	},
 	"scripts": {
 		"test": "node ./test/runTest.js"
-	},
+  },
+  "dependencies": {
+		"lodash": "^4.17.15",
+		"stylus": "^0.54.7"
+  },
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
@@ -32,10 +38,7 @@
 		"@types/vscode": "^1.39.0",
 		"eslint": "^5.13.0",
 		"glob": "^7.1.4",
-		"lodash": "^4.17.15",
 		"mocha": "^6.1.4",
-		"stylus": "^0.54.7",
-		"sugar-design": "git+ssh://git@gitlab.mokahr.com:TryMoka/sugar-design.git#v1.0.1-release",
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.2.0"
 	}

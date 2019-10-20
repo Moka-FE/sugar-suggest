@@ -4,19 +4,24 @@ const fs = require('fs')
 const path = require('path')
 const camelCase = require('lodash/camelCase');
 
-let suggestList = [];
+let jsSuggestList = [];
+let stylusSuggestList = [];
 let isInit = false;
 const IDENT = 'Ident';
 const EXPRESSION = 'Expression';
 
-function setSuggestList (list) {
-  suggestList = list;
+function setSuggestList (jsList, stylusList) {
+  jsSuggestList = jsList;
+  stylusSuggestList = stylusList;
   isInit = true;
   return true;
 };
 
 function getSuggestList() {
-  return suggestList;
+  return {
+    jsSuggestList,
+    stylusSuggestList,
+  }
 }
 
 function findPath() {
@@ -29,6 +34,11 @@ function findPath() {
   if (sugarWorkspace) {
     return sugarWorkspace.uri.fsPath;
   }
+}
+
+function getDisplayValue(name, value, isCamelCase) {
+  name = isCamelCase ? camelCase(name) : name;
+  return value ? `${name} (${value})` : `${name}`;
 }
 
 function init() {
@@ -44,20 +54,24 @@ function init() {
     const parser = new Parser(source);
     const ast = parser.parse()
     const variableNodes = ast.nodes;
-    const tempArray = [];
+    const jsTempArray = [];
+    const stylusTempArray = []; 
     variableNodes.forEach((node) => {
-      const name = camelCase(node.name.toLocaleLowerCase())
+      const name =  node.name 
+      let value;
       if (node.toJSON().__type === IDENT && node.val.toJSON().__type === EXPRESSION) {
-        const value = node.val.nodes[0].raw
-        const rawValue = `${name} (${value})`; 
-        const completionItem = new vscode.CompletionItem(rawValue, vscode.CompletionItemKind.Value);
-        completionItem.insertText = name;
-        completionItem.sortText = value;
-        completionItem.filterText = value;;
-        tempArray.push(completionItem);
-      }
+         value = node.val.nodes[0].raw
+      } 
+
+      const stylusItem = new vscode.CompletionItem(getDisplayValue(name, value, false), vscode.CompletionItemKind.Value);
+      stylusItem.insertText = name;
+      stylusTempArray.push(stylusItem);
+      const jsItem = new vscode.CompletionItem(getDisplayValue(name, value, true), vscode.CompletionItemKind.Value);
+      jsItem.insertText = camelCase(name);
+      jsTempArray.push(jsItem);
     });
-    setSuggestList(tempArray);
+    setSuggestList(jsTempArray, stylusTempArray);
+    console.log('sugar-suggest init success')
   } catch(err) {
     console.error(err)
   }
