@@ -2,7 +2,7 @@
 	"name": "sugar-suggest",
 	"displayName": "sugar-suggest",
 	"description": "",
-	"version": "0.0.3",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
@@ -12,17 +12,11 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld",
-		"onLanguage:javascript"
+		"onLanguage:javascript",
+		"onLanguage:stylus"
 	],
   "main": "./extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			}
-    ],
     "configuration": {
       "type": "object",
       "title": "sugar-suggest",
@@ -36,9 +30,13 @@
           "type": "string",
           "default": "@SDFoundation",
           "description": "自动引入sugar foundation的路径"
+        },
+        "sugar-suggest.variablePath": {
+          "type": "string",
+          "default": "~@SDVariable",
+          "description": "自动引入sugar variable的路径"
         } 
       }
-
     }
 	},
 	"scripts": {

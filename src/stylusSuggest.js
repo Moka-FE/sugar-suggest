@@ -1,9 +1,16 @@
 const vscode = require('vscode');
 const cache = require('./cache');
+const fix = require('./importFix');
 
-function provideCompletionItems() {
-    cache.init();
-    return cache.getSuggestList().stylusSuggestList;
+function provideCompletionItems(document) {
+  return cache.getSuggestList().stylusSuggestList.map((item) => {
+    item.command = {
+      title: 'auto import stylus variable',
+      command: 'extension.resolveSugarVariableImport',
+      arguments: [document],
+    }
+    return item;
+  })
 }    
 
 function resolveCompletionItem(item) {
@@ -14,6 +21,13 @@ module.exports = function(context) {
   let suggest = vscode.languages.registerCompletionItemProvider({ scheme: 'file', language: 'stylus' }, {
     provideCompletionItems,
     resolveCompletionItem,
-  }, '');
+  }, '*');
+
+  let fixer = vscode.commands.registerCommand('extension.resolveSugarVariableImport', (document) => {
+    const path = vscode.workspace.getConfiguration().get('sugar-suggest.variablePath')
+    const importStatement = `@import '${path}'`;
+    return fix(document, path, importStatement);
+  })
   context.subscriptions.push(suggest);
+  context.subscriptions.push(fixer);
 }

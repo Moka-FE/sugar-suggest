@@ -6,14 +6,12 @@ const camelCase = require('lodash/camelCase');
 
 let jsSuggestList = [];
 let stylusSuggestList = [];
-let isInit = false;
 const IDENT = 'Ident';
 const EXPRESSION = 'Expression';
 
 function setSuggestList (jsList, stylusList) {
   jsSuggestList = jsList;
   stylusSuggestList = stylusList;
-  isInit = true;
   return true;
 };
 
@@ -42,7 +40,13 @@ function getDisplayValue(name, value, isCamelCase) {
 }
 
 function init() {
-  if (isInit) return;
+  vscode.workspace.onDidChangeWorkspaceFolders((ev) => {
+    load()
+  });
+  load()
+}
+
+function load() {
   try {
     const rootPath = findPath();
     if (!rootPath) {
@@ -71,7 +75,7 @@ function init() {
       jsTempArray.push(jsItem);
     });
     setSuggestList(jsTempArray, stylusTempArray);
-    console.log('sugar-suggest init success')
+    console.log('sugar-suggest load success')
   } catch(err) {
     console.error(err)
   }
@@ -79,7 +83,6 @@ function init() {
 
 module.exports = {
   setSuggestList,
-  isInit,
   getSuggestList,
   init,
 };

@@ -3,7 +3,6 @@ const cache = require('./cache');
 
 function provideCompletionItems(document, position) {
     const line  = document.lineAt(position);
-    cache.init();
     const variableName = vscode.workspace.getConfiguration().get('sugar-suggest.variableName')
 
    // 只截取到光标位置为止，防止一些特殊情况
