@@ -22,8 +22,8 @@ stylus:
 
 .test
   color c90
-  font-weight font-weight-regular 
-  body-primary()
+  font-weight fontWeightRegular 
+  bodyPrimary()
 ```
 
 支持直接输入HEX值来获得代码提示

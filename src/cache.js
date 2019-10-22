@@ -69,6 +69,8 @@ function load() {
 
       const stylusItem = new vscode.CompletionItem(getDisplayValue(name, value, false), vscode.CompletionItemKind.Value);
       stylusItem.insertText = name;
+      stylusItem.filterText = value;
+      stylusItem.sortText = value;
       stylusTempArray.push(stylusItem);
       const jsItem = new vscode.CompletionItem(getDisplayValue(name, value, true), vscode.CompletionItemKind.Value);
       jsItem.insertText = camelCase(name);

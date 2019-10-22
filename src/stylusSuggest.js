@@ -21,7 +21,7 @@ module.exports = function(context) {
   let suggest = vscode.languages.registerCompletionItemProvider({ scheme: 'file', language: 'stylus' }, {
     provideCompletionItems,
     resolveCompletionItem,
-  }, '*');
+  }, '#');
 
   let fixer = vscode.commands.registerCommand('extension.resolveSugarVariableImport', (document) => {
     const path = vscode.workspace.getConfiguration().get('sugar-suggest.variablePath')
