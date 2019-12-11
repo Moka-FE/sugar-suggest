@@ -2,7 +2,7 @@
 	"name": "sugar-suggest",
 	"displayName": "sugar-suggest",
 	"description": "",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"engines": {
 		"vscode": "^1.39.0"
 	},

@@ -9,8 +9,17 @@ function provideCompletionItems(document, position) {
     const lineText = line.text.substring(0, position.character);
     const reg = new RegExp(`${variableName}\\.(w*)`)
     const match = lineText.match(reg);
+
     // 简单匹配，只要当前光标前的字符串为`this.dependencies.`都自动带出所有的依赖
-    return match ? cache.getSuggestList().jsSuggestList : [];
+    return match ? cache.getSuggestList().jsSuggestList.map(item => {
+
+    item.command = {
+      'title': 'auto import sugar foundation',
+      command: 'extension.resolveSugarFoundationImport',
+      arguments: [document],
+    }
+    return item;
+    }) : [];
    }
 
 function resolveCompletionItem(item) {

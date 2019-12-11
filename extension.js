@@ -1,6 +1,7 @@
 const jsSuggest = require('./src/jsSuggest');
 const stylusSuggest = require('./src/stylusSuggest');
 const autoImport = require('./src/autoImport');
+const variableSuggest = require('./src/variableSuggest');
 const cache = require('./src/cache');
 const vscode = require('vscode');
 
@@ -9,9 +10,10 @@ const vscode = require('vscode');
  */
 function activate(context) {
   cache.init();
+  autoImport(context);
+  variableSuggest(context);
   jsSuggest(context);
   stylusSuggest(context);
-  autoImport(context);
 }
 exports.activate = activate;
 

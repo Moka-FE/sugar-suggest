@@ -7,7 +7,9 @@ module.exports = function (document, path, importStatement) {
       return;
     } 
     const edit = new vscode.WorkspaceEdit();
-    const insertPos = document.positionAt(document.getText().lastIndexOf('import ')).translate(1, 0);
+    const pos = document.getText().lastIndexOf('import ')
+    let insertPos = document.positionAt(pos).translate(pos === -1 ? 0 : 1, 0);
+    insertPos = insertPos.with(insertPos.line, 0);
     edit.insert(document.uri, insertPos, `${importStatement};\n`);
     vscode.workspace.applyEdit(edit);
 }
