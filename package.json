@@ -2,7 +2,7 @@
 	"name": "sugar-suggest",
 	"displayName": "sugar-suggest",
 	"description": "",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
@@ -10,42 +10,45 @@
 	"repository": "git@github.com:wYuanHpp/sugar-suggest.git",
 	"categories": [
 		"Other"
-	],
+  ],
+  "icon": "./icon.png",
 	"activationEvents": [
 		"onLanguage:javascript",
-		"onLanguage:stylus"
+		"onLanguage:stylus",
+		"onLanguage:less"
 	],
-  "main": "./extension.js",
+	"main": "./extension.js",
 	"contributes": {
-    "configuration": {
-      "type": "object",
-      "title": "sugar-suggest",
-      "properties": {
-        "sugar-suggest.variableName": {
-          "type": "string",
-          "default": "sdf",
-          "description": "sugar foundation 挂在的变量名"
-        }, 
-        "sugar-suggest.path": {
-          "type": "string",
-          "default": "@SDFoundation",
-          "description": "自动引入sugar foundation的路径"
-        },
-        "sugar-suggest.variablePath": {
-          "type": "string",
-          "default": "~@SDVariable",
-          "description": "自动引入sugar variable的路径"
-        } 
-      }
-    }
+		"configuration": {
+			"type": "object",
+			"title": "sugar-suggest",
+			"properties": {
+				"sugar-suggest.variableName": {
+					"type": "string",
+					"default": "sdf",
+					"description": "sugar foundation 挂在的变量名"
+				},
+				"sugar-suggest.path": {
+					"type": "string",
+					"default": "@SDFoundation",
+					"description": "自动引入sugar foundation的路径"
+				},
+				"sugar-suggest.variablePath": {
+					"type": "string",
+					"default": "~@SDVariable",
+					"description": "自动引入sugar variable的路径"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"test": "node ./test/runTest.js"
-  },
-  "dependencies": {
+	},
+	"dependencies": {
+		"less": "^3.11.1",
 		"lodash": "^4.17.15",
 		"stylus": "^0.54.7"
-  },
+	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
