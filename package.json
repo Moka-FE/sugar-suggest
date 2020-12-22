@@ -11,7 +11,7 @@
 	"categories": [
 		"Other"
   ],
-  "icon": "./icon.png",
+  "icon": "icon.png",
 	"activationEvents": [
 		"onLanguage:javascript",
 		"onLanguage:stylus",
